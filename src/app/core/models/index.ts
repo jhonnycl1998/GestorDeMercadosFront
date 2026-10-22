@@ -90,6 +90,8 @@ export interface Pago {
   fechaPago: string;
   montoPago: number;
   deudaId: number;
+  tiendaId?: number;
+  servicioNombre?: string;
 }
 
 export interface PagoCreateRequest {

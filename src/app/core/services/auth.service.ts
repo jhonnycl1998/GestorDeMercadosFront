@@ -56,7 +56,7 @@ export class AuthService {
       localStorage.setItem(ROLE_KEY, res.rol);
       this.currentRole.set(res.rol);
     }
-const duenoId = res.duenoId ?? res.dueno;
+const duenoId = res.duenoId;
 if (duenoId !== undefined && duenoId !== null) {
   localStorage.setItem(DUENO_ID_KEY, duenoId.toString());
   this.currentDuenoId.set(duenoId);

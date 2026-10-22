@@ -168,31 +168,22 @@ export class UserMisPagosComponent implements OnInit {
     }
 
     this.loading = true;
+      this.pagoService.getMisPagos().subscribe({
+    next: (pagos) => {
+      this.misPagos = pagos.map(p => ({
+        pago: p,
+        tiendaId: p.tiendaId,
+        servicioNombre: p.servicioNombre
+      }));
+      this.loading = false;
+    },
+    error: () => {
+      this.loading = false;
+      this.misPagos = [];
+    }
+  });
 
-    forkJoin({
-      dueno: this.duenoService.getDueno(duenoId),
-      pagos: this.pagoService.getPagos()
-    }).subscribe({
-      next: ({ dueno, pagos }) => {
-        const tiendasIds = (dueno?.tiendas || []).map(t => t.id);
-
-        // Si tenemos pagos, cruzamos con las tiendas de este dueño
-        this.misPagos = pagos
-          .map(p => ({
-            pago: p,
-            deuda: undefined,
-            tiendaId: undefined,
-            servicioNombre: undefined
-          }))
-          .sort((a, b) => b.pago.id - a.pago.id);
-
-        this.loading = false;
-      },
-      error: () => {
-        this.loading = false;
-        this.misPagos = [];
-      }
-    });
+ 
   }
 
   abrirVoucher(pagoId: number): void {

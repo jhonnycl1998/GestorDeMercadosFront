@@ -19,6 +19,10 @@ export class PagoService {
     return this.http.get<Pago>(`${this.apiUrl}/${id}`);
   }
 
+    getMisPagos(): Observable<Pago[]> {
+    return this.http.get<Pago[]>(`${this.apiUrl}/mis-pagos`);
+  }
+
   getPagoPorDeuda(deudaId: number): Observable<Pago> {
     return this.http.get<Pago>(`${this.apiUrl}/deuda/${deudaId}`);
   }
